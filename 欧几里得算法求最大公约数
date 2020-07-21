@@ -1,0 +1,16 @@
+// 欧几里得算法,只需紧随定义即可
+#include<stdio.h>
+int main()
+{
+	int a,b,c=1;
+	printf("input number a,b:");
+	scanf("%d%d",&a,&b);
+	while(c!=0)                  //a<b也不用颠倒,下次运算可以自行颠倒回来
+	{
+		c=a%b;
+		a=b;
+		b=c;
+	}
+	printf("最大公约数是:%d\n",a);
+	return 0;
+}
