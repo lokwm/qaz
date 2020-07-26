@@ -1,0 +1,59 @@
+//起先看到这个题没有什么思路,因为不知道最后逆出来的数不知道是几位,所以最后还是决定用数组方法,今后学习了其他方法会优化改正的.
+#include <stdio.h>
+#include <string.h>
+
+int factorial(int n);
+int uncantor(int n, int value, char arr[20]);
+
+int main(void)
+{
+        int n, value;
+		char arr[20];
+        printf("please input n and value:");
+        scanf("%d%d", &n, &value);
+
+        for(int i=0;i<n+1;i++)
+            arr[i] = 0;
+        
+        uncantor(n, value, arr);
+        printf("the arr is:%s\n", arr);
+    
+
+    return 0;
+}
+//求阶乘
+int factorial(int n)
+{
+    if(n<0)
+        return 0;
+    else if(n==0)
+        return 1;
+    else
+        return n*factorial(n - 1);
+}
+//逆康托展开
+int uncantor(int n, int value, char arr[])
+{
+    if(value > factorial(n) - 1) 
+        return -1;
+    int i=0;
+    char temp[20];
+    for(i=0; i<n;i++)
+        temp[i] = 0;
+
+    for(i = 0; i<n; i++)
+    {
+        int num = value / factorial(n - i - 1);
+
+        for(int j = 0, k = num; k >= 0 &&  j < n; j++)
+            if(temp[j] == 1)
+                num++;
+            else
+                k--;
+        arr[i] = '1' + num;
+        temp[num] = 1;
+        value %= factorial(n - i -1);
+    }
+
+    return 0;
+}
